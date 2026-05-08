@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perpustakaan Digital - SMAN 1 Lemahabang</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-overlay"></div>
+    <div class="card" id="mainCard">
+        <div id="heroPage" class="content-view active-view">
+            <div class="logo-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_Chrome_logo_2011.png/600px-Google_Chrome_logo_2011.png" alt="Logo Sekolah" class="main-logo">
+            </div>
+            <header class="school-branding">
+                <h1>SMAN 1 LEMAHABANG</h1>
+                <p class="subtitle-kab">KABUPATEN CIREBON</p>
+                <p class="subtitle-app">Perpustakaan Digital</p>
+            </header>
+            <div class="custom-marquee">
+                <div class="marquee-content">
+                    <span>-- DISIPLIN, BERPRESTASI, DAN BERAKHLAQ MULIA -- SMAN 1 LEMAHABANG -- MENUJU MASA DEPAN GEMILANG --</span>
+                    <span>-- DISIPLIN, BERPRESTASI, DAN BERAKHLAQ MULIA -- SMAN 1 LEMAHABANG -- MENUJU MASA DEPAN GEMILANG --</span>
+                </div>
+            </div>
+            <div class="menu-stack">
+                <button class="menu-btn btn-blue" onclick="changePage('formPage')">
+                    <div class="btn-content"><i class="fa-solid fa-book-open-reader"></i> <span>Peminjaman Buku</span></div>
+                    <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                </button>
+                <button class="menu-btn btn-gray" onclick="changePage('adminPage')">
+                    <div class="btn-content"><i class="fa-solid fa-user-shield"></i> <span>Administrator</span></div>
+                    <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                </button>
+            </div>
+        </div>
+        <div id="formPage" class="content-view">
+            <div class="section-header">
+                <button class="back-link" onclick="changePage('heroPage')"><i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda</button>
+                <h3 class="title-dark">Formulir Peminjaman</h3>
+                <p class="subtitle-form">Lengkapi detail peminjaman di bawah ini.</p>
+            </div>
+            <form id="loanForm" onsubmit="event.preventDefault(); prosesSimpanLokal();">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label><i class="fa-solid fa-calendar-day"></i> Hari Pinjam</label>
+                        <select id="pilihHari" onchange="cekKetersediaan()" required>
+                            <option value="">Pilih Hari</option>
+                            <option value="Senin">Senin</option>
+                            <option value="Selasa">Selasa</option>
+                            <option value="Rabu">Rabu</option>
+                            <option value="Kamis">Kamis</option>
+                            <option value="Jumat">Jumat</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label><i class="fa-solid fa-tags"></i> Kategori</label>
+                        <select id="pilihKategori" onchange="updateDaftarBuku()" required>
+                            <option value="">Pilih</option>
+                            <option value="Pelajaran">Pelajaran</option>
+                            <option value="Cerita">Novel</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-book"></i> Pilih Buku</label>
+                    <select id="pilihBuku" onchange="cekKetersediaan()" required disabled>
+                        <option value="">Pilih kategori dahulu...</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label><i class="fa-solid fa-image"></i> Bukti Identitas (Foto Galeri)</label>
+                    <div class="upload-area" onclick="document.getElementById('uploadFoto').click()">
+                        <div id="previewContainer" class="hidden"><img id="imagePreview" src="" alt="Preview Gambar"></div>
+                        <div id="uploadPlaceholder">
+                            <i class="fa-solid fa-images"></i>
+                            <p>Klik untuk memilih foto</p>
+                            <span>Format: JPG, PNG (Maks 50MB)</span>
+                        </div>
+                        <input type="file" id="uploadFoto" accept="image/*" onchange="handleImageUpload(this)" hidden required>
+                    </div>
+                </div>
+                <button type="submit" id="btnKirim" class="btn-submit"><i class="fa-solid fa-paper-plane"></i> <span>Konfirmasi Peminjaman</span></button>
+            </form>
+        </div>
+        <div id="adminPage" class="content-view">
+            <div class="section-header">
+                <button class="back-link" onclick="changePage('heroPage')"><i class="fa-solid fa-arrow-left"></i> Kembali</button>
+                <h3 class="title-dark">Akses Administrator</h3>
+            </div>
+            <div class="input-group"><input type="text" placeholder="Username"></div>
+            <div class="input-group"><input type="password" placeholder="Password"></div>
+            <button class="btn-submit btn-dark"><span>Masuk Ke Dashboard</span></button>
+        </div>
+    </div>
+    <div class="footer-info"><i class="fa-solid fa-clock"></i> <span id="clock">Memuat Waktu...</span></div>
+    <script src="script.js"></script>
+</body>
+</html>
